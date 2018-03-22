@@ -1,24 +1,24 @@
 # README
+This project is designed for transportation system to manage and keep track of trips.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
+* Ruby version -> 2.3.0
+  Installation instructions can be found in https://www.ruby-lang.org/en/documentation/installation/
+* Rails Version -> 5.0.6
+* Database used -> POSTGRES 9.6.1
 
 * Configuration
+  - Install Postgres 9.6.1 in your system To download: https://www.calhoun.io/how-to-install-postgresql-9-6-on-mac-os-x/
 
 * Database creation
+  rails db:create
 
 * Database initialization
+  Run following commands: 
+  rails db:migrate (For running migrations for the system)
+  rails db:seed (For populating the database)
 
-* How to run the test suite
+* How to run the test suite 
+Please run bin/rake for running of test cases.
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+For login: Please follow 
+http://localhost:3000/oauth/token and give email, password, grant_type "password" as parameters.
