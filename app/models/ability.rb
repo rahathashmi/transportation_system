@@ -7,7 +7,7 @@ class Ability
         can :manage, :all
       elsif user.read?
         can :read, Company
-        can :read, Vechile
+        can :read, Vehicle
         can :read, Trip
         can :read, Role
       end

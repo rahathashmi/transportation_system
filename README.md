@@ -8,7 +8,8 @@ This project is designed for transportation system to manage and keep track of t
 
 * Configuration
   - Install Postgres 9.6.1 in your system To download: https://www.calhoun.io/how-to-install-postgresql-9-6-on-mac-os-x/
-
+* Bundle install 
+  Run bundle install for installation of gems
 * Database creation
   rails db:create
 
@@ -19,6 +20,7 @@ This project is designed for transportation system to manage and keep track of t
 
 * How to run the test suite 
 Please run bin/rake for running of test cases.
+If you have permission issue, run chmod u+x bin/rake for MacOS
 
 For login: Please follow 
 http://localhost:3000/oauth/token and give email, password, grant_type "password" as parameters.
