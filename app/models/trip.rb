@@ -14,19 +14,27 @@ class Trip < ApplicationRecord
   
 
   
-  scope :filter_by_user, ->(user_email = nil) {
-    if user_email.present?
-      eager_load(:user).where("#{User.table_name}.email LIKE ? OR #{User.table_name}.id LIKE ?", "%#{user_email.downcase}%","%#{user_email.downcase}%")
+  scope :filter_by_user, ->(user_search = nil) {
+    if user_search.present?
+      if user_search.is_a?
+        eager_load(:user).where(user_id: user_search)
+      else
+        eager_load(:user).where("#{User.table_name}.email LIKE ?", "%#{user_search.downcase}%")
+      end
     end
   }
   scope :filter_by_vehicle, ->(id = nil) {
-    if id.present?
-      eager_load(:vehicle).where("#{Vehicle.table_name}.id LIKE ?", "%#{id.downcase}%")
+    if id.present? && id.is_a?
+      eager_load(:vehicle).where(vehicle_id: id)
     end
   }
-  scope :filter_by_all, ->(user_email = nil, id = nil) {
-    if user_email.present? && id.present?
-      eager_load(:user, :vehicle).where("#{User.table_name}.email LIKE ? OR #{Vehicle.table_name}.id LIKE ? ", "%#{user_email.downcase}%", "%#{id.downcase}%")
+  scope :filter_by_all, ->(user_search = nil, id = nil) {
+    if user_search.present? && id.present?
+      if user_search.is_a? && id.is_a?
+        eager_load(:user, :vehicle).where("#{User.table_name}.id = ? OR #{Vehicle.table_name}.id = ? ", user_search, id)
+      else
+        eager_load(:user, :vehicle).where("#{User.table_name}.email = ? OR #{Vehicle.table_name}.id = ? ", "%#{user_search.downcase}%", id)
+      end
     end
   }
   
@@ -60,7 +68,7 @@ class Trip < ApplicationRecord
           end
         end
       else
-        errors.add(:user_id, "record not found")
+        errors.add(:vehicle_id, "record not found")
       end
     end
     if self.user_id.present?
