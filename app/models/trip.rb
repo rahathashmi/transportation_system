@@ -15,17 +15,17 @@ class Trip < ApplicationRecord
 
   
   scope :filter_by_user, ->(user_email = nil) {
-    if user_email .present?
+    if user_email.present?
       eager_load(:user).where("#{User.table_name}.email LIKE ? OR #{User.table_name}.id LIKE ?", "%#{user_email.downcase}%","%#{user_email.downcase}%")
     end
   }
   scope :filter_by_vehicle, ->(id = nil) {
-    if user.present?
+    if id.present?
       eager_load(:vehicle).where("#{Vehicle.table_name}.id LIKE ?", "%#{id.downcase}%")
     end
   }
   scope :filter_by_all, ->(user_email = nil, id = nil) {
-    if user_email.present?
+    if user_email.present? && id.present?
       eager_load(:user, :vehicle).where("#{User.table_name}.email LIKE ? OR #{Vehicle.table_name}.id LIKE ? ", "%#{user_email.downcase}%", "%#{id.downcase}%")
     end
   }
